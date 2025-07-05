@@ -1,0 +1,11 @@
+-- 3. Coppie di passeggeri che hanno viaggiato insieme (stessa tratta stesso giorno)
+SELECT 
+  A.id_passeggero || ' & ' || B.id_passeggero AS coppia,
+  COUNT(*) AS viaggi_insieme
+FROM Biglietto A
+JOIN Biglietto B ON A.id_tratta = B.id_tratta 
+                AND A.data_emissione = B.data_emissione
+                AND A.id_passeggero < B.id_passeggero
+GROUP BY coppia
+HAVING viaggi_insieme > 0
+ORDER BY viaggi_insieme DESC
